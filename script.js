@@ -1,21 +1,35 @@
 const grid = document.querySelector(".grid");
 const timerDisplay = document.querySelector(".timer");
 let emojis = ["😀", "🐶", "🍕", "🚗", "🎵", "⚽", "🌈", "🔥"];
-emojis = [...emojis, ...emojis]; // duplicate for pairs
-emojis.sort(() => 0.5 - Math.random()); // shuffle
+emojis = [...emojis, ...emojis];
+emojis.sort(() => 0.5 - Math.random());
 
 let firstCard = null;
 let secondCard = null;
 let lockBoard = false;
 let matchedPairs = 0;
-let time = 0;
+let seconds = 0;
+let minutes = 0;
 let timer = null;
 
 function startTimer() {
   if (!timer) {
     timer = setInterval(() => {
-      time++;
-      timerDisplay.textContent = `Time: ${time}s`;
+      seconds++;
+      if (seconds > 59) {
+        minutes++;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = 0;
+      }
+
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+
+      if (minutes > 0) {
+        timerDisplay.textContent = `Time: ${minutes} : ${seconds}s`;
+        return;
+      }
+
+      timerDisplay.textContent = `Time: ${seconds}s`;
     }, 1000);
   }
 }
@@ -27,7 +41,7 @@ function generateHTML() {
     card.classList.add("card");
     card.dataset.emoji = emoji;
     card.dataset.index = index;
-    card.innerHTML = ""; // initially blank
+    card.innerHTML = "";
     grid.appendChild(card);
 
     card.addEventListener("click", () => flipCard(card));
@@ -57,7 +71,7 @@ function checkMatch() {
     resetBoard();
     if (matchedPairs === emojis.length / 2) {
       clearInterval(timer);
-      alert(`You won in ${time} seconds!`);
+      alert(`You won in ${seconds} seconds!`);
     }
   } else {
     lockBoard = true;
@@ -76,57 +90,3 @@ function resetBoard() {
 }
 
 generateHTML();
-
-// let click = 0;
-// let contentArray = [];
-
-// function cardFlip() {}
-
-// function generateHTML() {
-//   let html = ``;
-//   let grid = document.querySelector(".grid");
-
-//   let afterNine = 1;
-//   for (let index = 1; index <= 16; index++) {
-//     if (index >= 9) {
-//       html += `<div id="card${index}" class="card card${index}">${afterNine}</div>`;
-
-//       afterNine++;
-//     } else {
-//       html += `<div id="card${index}" class="card card${index}">${index}</div>`;
-//     }
-//   }
-
-//   grid.innerHTML = html;
-// }
-// generateHTML();
-
-// for (let index = 1; index <= 16; index++) {
-//   let card = document.querySelector(`.card${index}`);
-
-//   card.addEventListener("click", () => {
-//     card.style.visibility = "hidden";
-//     click++;
-
-//     contentArray.unshift(card.innerHTML);
-
-//     console.log(contentArray);
-
-//     if (click % 2 === 0) {
-//       console.log("working");
-//       compareContent();
-//     }
-//   });
-// }
-
-// function compareContent() {
-//   if (contentArray[0] === contentArray[1]) {
-//     console.log("matched");
-//     contentArray = [];
-//   } else {
-//     contentArray.forEach((content) => {
-//       document.getElementById(`card${content}`).style.visibility = "visible";
-//     });
-//     contentArray = [];
-//   }
-// }

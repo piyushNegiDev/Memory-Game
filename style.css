@@ -9,11 +9,24 @@ body {
   background-color: rgb(202, 202, 202);
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.timer {
+  font-size: 1.5rem;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 100px);
   gap: 10px;
 }
+
 .card {
   height: 100px;
   width: 100px;
@@ -27,6 +40,7 @@ body {
   transform: rotateY(180deg);
   transition: transform 0.5s linear;
 }
+
 .card.flipped {
   background: #fff;
   transform: rotateY(0deg);

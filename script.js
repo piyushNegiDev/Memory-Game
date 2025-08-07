@@ -1,5 +1,6 @@
 const grid = document.querySelector(".grid");
 const timerDisplay = document.querySelector(".timer");
+const movesDisplay = document.querySelector(".moves");
 let emojis = ["😀", "🐶", "🍕", "🚗", "🎵", "⚽", "🌈", "🔥"];
 emojis = [...emojis, ...emojis];
 emojis.sort(() => 0.5 - Math.random());
@@ -10,6 +11,7 @@ let lockBoard = false;
 let matchedPairs = 0;
 let seconds = 0;
 let minutes = 0;
+let moves = 0;
 let timer = null;
 
 function startTimer() {
@@ -62,6 +64,10 @@ function flipCard(card) {
   }
 
   secondCard = card;
+
+  moves++;
+  movesDisplay.innerHTML = `Moves: ${moves}`;
+
   checkMatch();
 }
 
@@ -71,7 +77,9 @@ function checkMatch() {
     resetBoard();
     if (matchedPairs === emojis.length / 2) {
       clearInterval(timer);
-      alert(`You won in ${seconds} seconds!`);
+      setTimeout(() => {
+        winMsg();
+      }, 1000);
     }
   } else {
     lockBoard = true;
@@ -81,12 +89,21 @@ function checkMatch() {
       firstCard.innerHTML = "";
       secondCard.innerHTML = "";
       resetBoard();
-    }, 1000);
+    }, 800);
   }
 }
 
 function resetBoard() {
   [firstCard, secondCard, lockBoard] = [null, null, false];
+}
+
+function winMsg() {
+  let gridContainer = document.querySelector(".gridContainer");
+  gridContainer.classList.add("gridContainerStyles");
+  gridContainer.innerHTML = `
+    <h2>You win!</h2>
+    <button onclick="location.reload()">want to play again ?</button>
+`;
 }
 
 generateHTML();

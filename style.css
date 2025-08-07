@@ -1,21 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: rgb(202, 202, 202);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 100px);
   gap: 10px;
 }
 .card {
-  width: 100px;
   height: 100px;
-  background: #ccc;
+  width: 100px;
+  border-radius: 5px;
+  background: green;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 2rem;
   cursor: pointer;
   transform: rotateY(180deg);
-  transition: transform 0.5s;
+  transition: transform 0.5s linear;
 }
 .card.flipped {
   background: #fff;
-  transform: rotateY(0);
+  transform: rotateY(0deg);
 }

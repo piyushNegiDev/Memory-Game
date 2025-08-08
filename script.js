@@ -74,6 +74,9 @@ function flipCard(card) {
 function checkMatch() {
   if (firstCard.dataset.emoji === secondCard.dataset.emoji) {
     matchedPairs++;
+
+    document.querySelector(".matches").innerHTML = `Matches: ${matchedPairs}`;
+
     resetBoard();
     if (matchedPairs === emojis.length / 2) {
       clearInterval(timer);

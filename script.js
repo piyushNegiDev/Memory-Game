@@ -109,4 +109,12 @@ function winMsg() {
 `;
 }
 
+let newGameBtn = document.querySelector(".newGameBtn");
+
+newGameBtn.addEventListener("click", () => {
+  setTimeout(() => {
+    location.reload();
+  }, 500);
+});
+
 generateHTML();

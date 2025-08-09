@@ -2,8 +2,7 @@ const grid = document.querySelector(".grid");
 const timerDisplay = document.querySelector(".timer");
 const movesDisplay = document.querySelector(".moves");
 let emojis = ["😀", "🐶", "🍕", "🚗", "🎵", "⚽", "🌈", "🔥"];
-emojis = [...emojis, ...emojis];
-emojis.sort(() => 0.5 - Math.random());
+emojis = shuffle([...emojis, ...emojis]);
 
 let firstCard = null;
 let secondCard = null;
@@ -13,6 +12,20 @@ let seconds = 0;
 let minutes = 0;
 let moves = 0;
 let timer = null;
+
+function shuffle(array) {
+  let currentIndex = array.length,
+    randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+  return array;
+}
 
 function startTimer() {
   if (!timer) {
